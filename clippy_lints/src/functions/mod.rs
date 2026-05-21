@@ -1,3 +1,4 @@
+mod cloning_borrowed_param;
 mod duplicate_underscore_argument;
 mod impl_trait_in_params;
 mod misnamed_getters;
@@ -20,6 +21,25 @@ use rustc_middle::ty::TyCtxt;
 use rustc_session::{declare_lint_pass, impl_lint_pass};
 use rustc_span::Span;
 use rustc_span::def_id::{DefIdSet, LocalDefId};
+
+declare_clippy_lint! {
+    /// ### What it does
+    ///
+    /// ### Why is this bad?
+    ///
+    /// ### Example
+    /// ```no_run
+    /// // example code where clippy issues a warning
+    /// ```
+    /// Use instead:
+    /// ```no_run
+    /// // example code which does not raise clippy warning
+    /// ```
+    #[clippy::version = "1.97.0"]
+    pub CLONING_BORROWED_PARAM,
+    nursery,
+    "default lint description"
+}
 
 declare_clippy_lint! {
     /// ### What it does
@@ -476,6 +496,7 @@ declare_clippy_lint! {
 declare_lint_pass!(EarlyFunctions => [DUPLICATE_UNDERSCORE_ARGUMENT]);
 
 impl_lint_pass!(Functions => [
+    CLONING_BORROWED_PARAM,
     DOUBLE_MUST_USE,
     IMPL_TRAIT_IN_PARAMS,
     MISNAMED_GETTERS,
